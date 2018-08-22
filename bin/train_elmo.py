@@ -75,7 +75,7 @@ def main(args):
 
         'lstm': {
             'cell_clip': 3,
-            'dim': 1024,
+            'dim': 512,
             'n_layers': 2,
             'proj_clip': 3,
             'projection_dim': 256,
