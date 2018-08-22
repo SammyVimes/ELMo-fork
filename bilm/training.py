@@ -14,6 +14,7 @@ from tensorflow.python.ops.init_ops import glorot_uniform_initializer
 
 from .data import Vocabulary, UnicodeCharsVocabulary, InvalidNumberOfCharacters
 
+DEVICE = '/cpu'
 
 DTYPE = 'float32'
 DTYPE_INT = 'int64'
@@ -698,7 +699,7 @@ def train(options, data, n_gpus, tf_save_dir, tf_log_dir,
             initializer=tf.constant_initializer(0.0), trainable=False)
         norm_summaries = []
         for k in range(n_gpus):
-            with tf.device('/gpu:%d' % k):
+            with tf.device('/%s:%d' % (DEVICE, k)):
                 print('gpu n %d' % k)
                 with tf.variable_scope('lm', reuse=k > 0):
                     # calculate the loss for one model replica and get
@@ -971,7 +972,7 @@ def test(options, ckpt_file, data, batch_size=256):
 
     config = tf.ConfigProto(allow_soft_placement=True)
     with tf.Session(config=config) as sess:
-        with tf.device('/gpu:0'), tf.variable_scope('lm'):
+        with tf.device('%s:0' % DEVICE), tf.variable_scope('lm'):
             test_options = dict(options)
             # NOTE: the number of tokens we skip in the last incomplete
             # batch is bounded above batch_size * unroll_steps
