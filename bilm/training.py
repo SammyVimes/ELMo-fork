@@ -699,6 +699,7 @@ def train(options, data, n_gpus, tf_save_dir, tf_log_dir,
         norm_summaries = []
         for k in range(n_gpus):
             with tf.device('/gpu:%d' % k):
+                print('gpu n %d' % k)
                 with tf.variable_scope('lm', reuse=k > 0):
                     # calculate the loss for one model replica and get
                     #   lstm states
@@ -762,8 +763,11 @@ def train(options, data, n_gpus, tf_save_dir, tf_log_dir,
 
     # do the training loop
     bidirectional = options.get('bidirectional', False)
-    with tf.Session(config=tf.ConfigProto(
-            allow_soft_placement=True)) as sess:
+
+    proto = tf.ConfigProto(allow_soft_placement=True)
+    proto.gpu_options.allow_growth = True
+
+    with tf.Session(config=proto) as sess:
         sess.run(init)
 
         # load the checkpoint data if needed
