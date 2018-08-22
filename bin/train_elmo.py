@@ -69,7 +69,7 @@ def main(args):
                                  [7, 1024]],
                      'max_characters_per_token': 50,
                      'n_characters': 261,
-                     'n_highway': 2},
+                     'n_highway': None},
 
         'dropout': 0.1,
 

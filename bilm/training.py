@@ -767,6 +767,7 @@ def train(options, data, n_gpus, tf_save_dir, tf_log_dir,
     proto = tf.ConfigProto(allow_soft_placement=True)
     proto.gpu_options.allow_growth = False
 
+
     with tf.Session(config=proto) as sess:
         sess.run(init)
 
