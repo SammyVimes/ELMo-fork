@@ -765,7 +765,7 @@ def train(options, data, n_gpus, tf_save_dir, tf_log_dir,
     bidirectional = options.get('bidirectional', False)
 
     proto = tf.ConfigProto(allow_soft_placement=True)
-    proto.gpu_options.allow_growth = True
+    proto.gpu_options.allow_growth = False
 
     with tf.Session(config=proto) as sess:
         sess.run(init)
@@ -774,7 +774,7 @@ def train(options, data, n_gpus, tf_save_dir, tf_log_dir,
         if restart_ckpt_file is not None:
             loader = tf.train.Saver()
             loader.restore(sess, restart_ckpt_file)
-            
+
         summary_writer = tf.summary.FileWriter(tf_log_dir, sess.graph)
 
         # For each batch:
@@ -875,12 +875,12 @@ def train(options, data, n_gpus, tf_save_dir, tf_log_dir,
             else:
                 # also run the histogram summaries
                 ret = sess.run(
-                    [train_op, summary_op, train_perplexity, hist_summary_op] + 
+                    [train_op, summary_op, train_perplexity, hist_summary_op] +
                                                 final_state_tensors,
                     feed_dict=feed_dict
                 )
                 init_state_values = ret[4:]
-                
+
 
             if batch_no % 1250 == 0:
                 summary_writer.add_summary(ret[3], batch_no)
