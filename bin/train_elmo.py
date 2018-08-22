@@ -62,14 +62,10 @@ def main(args):
                      'embedding': {'dim': 16},
                      'filters': [[1, 32],
                                  [2, 32],
-                                 [3, 64],
-                                 [4, 128],
-                                 [5, 256],
-                                 [6, 512],
-                                 [7, 1024]],
+                                 [3, 64]],
                      'max_characters_per_token': 50,
                      'n_characters': 261,
-                     'n_highway': None},
+                     'n_highway': 2},
 
         'dropout': 0.1,
 
