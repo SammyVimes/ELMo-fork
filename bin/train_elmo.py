@@ -56,37 +56,39 @@ def main(args):
     # }
 
     options = {
-        'bidirectional': True,
+     'bidirectional': True,
 
-        'char_cnn': {'activation': 'relu',
-                     'embedding': {'dim': 16},
-                     'filters': [[1, 32],
-                                 [2, 32],
-                                 [3, 64],
-                                 [4, 128],
-                                 [5, 256]],
-                     'max_characters_per_token': 50,
-                     'n_characters': 261,
-                     'n_highway': 2},
+     'char_cnn': {'activation': 'relu',
+      'embedding': {'dim': 16},
+      'filters': [[1, 32],
+       [2, 32],
+       [3, 64],
+       [4, 128],
+       [5, 256],
+       [6, 512],
+       [7, 1024]],
+      'max_characters_per_token': 50,
+      'n_characters': 261,
+      'n_highway': 2},
 
-        'dropout': 0.1,
+     'dropout': 0.1,
 
-        'lstm': {
-            'cell_clip': 3,
-            'dim': 256,
-            'n_layers': 2,
-            'proj_clip': 3,
-            'projection_dim': 256,
-            'use_skip_connections': True},
+     'lstm': {
+      'cell_clip': 3,
+      'dim': 4096,
+      'n_layers': 2,
+      'proj_clip': 3,
+      'projection_dim': 512,
+      'use_skip_connections': True},
 
-        'all_clip_norm_val': 10.0,
+     'all_clip_norm_val': 10.0,
 
-        'n_epochs': 2,
-        'n_train_tokens': n_train_tokens,
-        'batch_size': batch_size,
-        'n_tokens_vocab': vocab.size,
-        'unroll_steps': 20,
-        'n_negative_samples_batch': 1024,
+     'n_epochs': 10,
+     'n_train_tokens': n_train_tokens,
+     'batch_size': batch_size,
+     'n_tokens_vocab': vocab.size,
+     'unroll_steps': 20,
+     'n_negative_samples_batch': 8192,
     }
 
     prefix = args.train_prefix
